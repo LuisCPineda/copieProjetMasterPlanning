@@ -1,0 +1,28 @@
+ame: Copier le répertoire à chaque commit
+on:
+  push:
+    branches:
+      - main  # Vous pouvez spécifier la branche que vous souhaitez surveiller
+
+jobs:
+  copy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Vérifier le code
+      uses: actions/checkout@v2  # Cette étape récupère le code du référentiel source
+
+    - name: Cloner le répertoire source
+      run: |
+        git clone https://github.com/a23-b2b/projet-de-session-masterplanning.git
+        mv projet-de-session-masterplanning destination/  # Renommez le répertoire cloné selon vos besoins
+
+    - name: Commit et poussez les changements
+      run: |
+        cd destination/
+        git config user.name "LuisCPineda"
+        git config user.email "luiscpinedar@gmail.com"
+        git add .
+        git commit -m "Copier le répertoire automatiquement"
+        git remote add destination https://github.com/LuisCPineda/copieProjetMasterPlanning.git
+        git push destination main  # Vous pouvez spécifier la branche de destination si nécessaire
